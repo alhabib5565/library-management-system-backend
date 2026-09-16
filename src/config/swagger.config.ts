@@ -1,0 +1,31 @@
+// swagger.ts
+import swaggerAutogen from 'swagger-autogen';
+import path from 'path';
+import { userSchemas } from '../modules/users/user.swagger.schema';
+const doc = {
+  info: {
+    title: 'Library Management System',
+    version: '1.0.0',
+    description: 'Library Management System API Documentation',
+  },
+  servers: [
+    {
+      url: 'http://localhost:3000',
+    },
+  ],
+  components: {
+    schemas: {
+      ...userSchemas,
+    },
+  },
+
+  tags: [
+    { name: 'Auth', description: 'Authentication APIs' },
+    { name: 'Users', description: 'User management APIs' },
+  ],
+};
+
+const outputFile = path.resolve(process.cwd(), 'swagger-output.json');
+const routes = ['../app.ts'];
+
+swaggerAutogen({ openapi: '3.0.0' })(outputFile, routes, doc);
