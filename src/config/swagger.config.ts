@@ -17,6 +17,36 @@ const doc = {
     schemas: {
       ...userSchemas,
     },
+    parameters: {
+      Page: {
+        name: 'page',
+        in: 'query',
+        required: false,
+        schema: {
+          type: 'integer',
+          default: 1,
+        },
+      },
+
+      Limit: {
+        name: 'limit',
+        in: 'query',
+        required: false,
+        schema: {
+          type: 'integer',
+          default: 10,
+        },
+      },
+
+      Search: {
+        name: 'search',
+        in: 'query',
+        required: false,
+        schema: {
+          type: 'string',
+        },
+      },
+    },
   },
 
   tags: [

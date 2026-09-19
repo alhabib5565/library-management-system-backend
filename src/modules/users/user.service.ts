@@ -33,7 +33,9 @@ const getUserById = async (id: string) => {
   return userUtils.sanitizeUser(user);
 };
 
-const getAllUsers = async (page: number = 1, limit: number = 10) => {
+const getAllUsers = async (query: Record<string, unknown>) => {
+  const page = parseInt(query.page as string) || 1;
+  const limit = parseInt(query.limit as string) || 10;
   const offset = (page - 1) * limit;
 
   // Get users and total count

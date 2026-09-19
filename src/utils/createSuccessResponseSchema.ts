@@ -1,17 +1,26 @@
-export const ref = (name: string) => ({ $ref: `#/components/schemas/${name}` });
+type TResponseOptions = {
+  statusCode?: number;
+  message?: string;
+  meta?: boolean;
+};
+
+export const ref = (name: string) => ({
+  $ref: `#/components/schemas/${name}`,
+});
+
 export const array = (name: string) => ({
   type: 'array',
   items: ref(name),
 });
 
-console.log('arra', ref('Category'));
-
-export const createSuccessResponseSchema = (dataSchema, withMeta = false) => ({
+export const createSuccessResponseSchema = (dataSchema: any, options: TResponseOptions = {}) => ({
   success: true,
-  statusCode: 200,
-  message: 'Operation successful',
+
+  statusCode: options.statusCode ?? 200,
+
+  message: options.message ?? 'Operation successful',
   data: dataSchema,
-  ...(withMeta && {
+  ...(options.meta && {
     meta: {
       page: 1,
       limit: 10,

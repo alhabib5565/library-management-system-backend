@@ -36,6 +36,19 @@ export const userSchemas = {
   },
 
   // Responses
-  UserResponse: createSuccessResponseSchema(ref('User')),
-  UserListResponse: createSuccessResponseSchema(ref('UserListData'), true),
+  CreateUserResponse: createSuccessResponseSchema(ref('User'), {
+    statusCode: 201,
+    message: 'User created successfully',
+  }),
+  UpdateUserResponse: createSuccessResponseSchema(ref('User'), {
+    statusCode: 200,
+    message: 'User updated successfully',
+  }),
+  UserResponse: createSuccessResponseSchema(ref('User'), {
+    message: 'User retrieved successfully',
+  }),
+  UserListResponse: createSuccessResponseSchema(ref('UserListData'), {
+    message: 'Users retrieved successfully',
+    meta: true,
+  }),
 };

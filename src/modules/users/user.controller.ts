@@ -8,14 +8,14 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   const result = await userService.createNewUser(req.body);
 
   sendSuccessResponse(res, {
-    statusCode: httpStatus.OK,
+    statusCode: httpStatus.CREATED,
     message: 'User created succesfully',
     data: result,
   });
 });
 
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-  const { data, meta } = await userService.getAllUsers();
+  const { data, meta } = await userService.getAllUsers(req.query);
 
   sendSuccessResponse(res, {
     statusCode: httpStatus.OK,

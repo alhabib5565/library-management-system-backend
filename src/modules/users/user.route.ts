@@ -16,7 +16,7 @@ router.post(
     schema: { $ref: "#/components/schemas/CreateUser" }
   }
   #swagger.responses[201] = {
-    schema: { $ref: "#/components/schemas/UserResponse" }
+    schema: { $ref: "#/components/schemas/CreateUserResponse" }
   }
   */
 );
@@ -24,7 +24,12 @@ router.get(
   '/',
   userController.getAllUsers
   /*
- #swagger.responses[201] = {
+ #swagger.parameters['$ref'] = [
+      '#/components/parameters/Page',
+      '#/components/parameters/Limit',
+      '#/components/parameters/Search'
+    ]
+ #swagger.responses[200] = {
     schema: { $ref: "#/components/schemas/UserListResponse" }
   }
   */
@@ -33,7 +38,7 @@ router.get(
   '/:id',
   userController.getUserById
   /*
- #swagger.responses[201] = {
+ #swagger.responses[200] = {
     schema: { $ref: "#/components/schemas/UserResponse" }
   }
   */
@@ -44,10 +49,10 @@ router.put(
   userController.updateUser /*
   #swagger.requestBody = {
     required: true,
-    schema: { $ref: "#/components/schemas/CreateUser" }
+    schema: { $ref: "#/components/schemas/UpdateUser" }
   }
   #swagger.responses[201] = {
-    schema: { $ref: "#/components/schemas/UserResponse" }
+    schema: { $ref: "#/components/schemas/UpdateUserResponse" }
   }
   */
 );

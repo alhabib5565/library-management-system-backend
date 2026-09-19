@@ -43,12 +43,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SingleUser"
+                  "$ref": "#/components/schemas/CreateUserResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/SingleUser"
+                  "$ref": "#/components/schemas/CreateUserResponse"
                 }
               }
             }
@@ -75,18 +75,29 @@
           "Users"
         ],
         "description": "",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Search"
+          }
+        ],
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserListWithMeta"
+                  "$ref": "#/components/schemas/UserListResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserListWithMeta"
+                  "$ref": "#/components/schemas/UserListResponse"
                 }
               }
             }
@@ -111,17 +122,17 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SingleUser"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/SingleUser"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               }
             }
@@ -149,12 +160,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SingleUser"
+                  "$ref": "#/components/schemas/UpdateUserResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/SingleUser"
+                  "$ref": "#/components/schemas/UpdateUserResponse"
                 }
               }
             }
@@ -165,12 +176,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUser"
+                "$ref": "#/components/schemas/UpdateUser"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUser"
+                "$ref": "#/components/schemas/UpdateUser"
               }
             }
           }
@@ -320,6 +331,50 @@
           "name": "User"
         }
       },
+      "UserListData": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "user_id": {
+              "type": "string",
+              "example": "1"
+            },
+            "name": {
+              "type": "string",
+              "example": "Rahim Uddin"
+            },
+            "email": {
+              "type": "string",
+              "example": "rahim@gmail.com"
+            },
+            "role": {
+              "type": "string",
+              "example": "Librarian"
+            },
+            "status": {
+              "type": "string",
+              "example": "Active"
+            },
+            "created_at": {
+              "type": "string",
+              "example": "2023-07-01T10:00:00.000Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "example": "2023-07-01T10:00:00.000Z"
+            }
+          },
+          "required": [
+            "user_id",
+            "name",
+            "email"
+          ]
+        },
+        "xml": {
+          "name": "UserListData"
+        }
+      },
       "CreateUser": {
         "type": "object",
         "properties": {
@@ -373,51 +428,7 @@
           "name": "UpdateUser"
         }
       },
-      "UserList": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "user_id": {
-              "type": "string",
-              "example": "1"
-            },
-            "name": {
-              "type": "string",
-              "example": "Rahim Uddin"
-            },
-            "email": {
-              "type": "string",
-              "example": "rahim@gmail.com"
-            },
-            "role": {
-              "type": "string",
-              "example": "Librarian"
-            },
-            "status": {
-              "type": "string",
-              "example": "Active"
-            },
-            "created_at": {
-              "type": "string",
-              "example": "2023-07-01T10:00:00.000Z"
-            },
-            "updated_at": {
-              "type": "string",
-              "example": "2023-07-01T10:00:00.000Z"
-            }
-          },
-          "required": [
-            "user_id",
-            "name",
-            "email"
-          ]
-        },
-        "xml": {
-          "name": "UserList"
-        }
-      },
-      "SingleUser": {
+      "CreateUserResponse": {
         "type": "object",
         "properties": {
           "success": {
@@ -426,11 +437,11 @@
           },
           "statusCode": {
             "type": "number",
-            "example": 200
+            "example": 201
           },
           "message": {
             "type": "string",
-            "example": "Operation successful"
+            "example": "User created successfully"
           },
           "data": {
             "xml": {
@@ -440,10 +451,10 @@
           }
         },
         "xml": {
-          "name": "SingleUser"
+          "name": "CreateUserResponse"
         }
       },
-      "UserListWithMeta": {
+      "UpdateUserResponse": {
         "type": "object",
         "properties": {
           "success": {
@@ -456,13 +467,65 @@
           },
           "message": {
             "type": "string",
-            "example": "Operation successful"
+            "example": "User updated successfully"
           },
           "data": {
             "xml": {
-              "name": "userlist"
+              "name": "user"
             },
-            "$ref": "#/components/schemas/UserList"
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "xml": {
+          "name": "UpdateUserResponse"
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "User retrieved successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "user"
+            },
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "xml": {
+          "name": "UserResponse"
+        }
+      },
+      "UserListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Users retrieved successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "userlistdata"
+            },
+            "$ref": "#/components/schemas/UserListData"
           },
           "meta": {
             "type": "object",
@@ -483,7 +546,35 @@
           }
         },
         "xml": {
-          "name": "UserListWithMeta"
+          "name": "UserListResponse"
+        }
+      }
+    },
+    "parameters": {
+      "Page": {
+        "name": "page",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 1
+        }
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 10
+        }
+      },
+      "Search": {
+        "name": "search",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
         }
       }
     }
