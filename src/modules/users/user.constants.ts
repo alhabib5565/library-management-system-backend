@@ -4,8 +4,8 @@ export const USER_ROLE = {
 } as const;
 
 export const USER_STATUS = {
-  ACTIVE: 'Active',
-  INACTIVE: 'Inactive',
+  ACTIVE: 'active',
+  INACTIVE: 'inactive',
 } as const;
 
 export type TUserRole = (typeof USER_ROLE)[keyof typeof USER_ROLE];

@@ -41,7 +41,9 @@ const findUserByEmail = async (email: string): Promise<IUser | null> => {
       user_id, 
       name, 
       email, 
-      role 
+      role,
+      status,
+      password
     FROM users 
     WHERE email = $1
     `;

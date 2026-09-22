@@ -2,6 +2,7 @@
 import swaggerAutogen from 'swagger-autogen';
 import path from 'path';
 import { userSchemas } from '../modules/users/user.swagger.schema';
+import { authSchemas } from '../modules/auth/auth.swagger';
 const doc = {
   info: {
     title: 'Library Management System',
@@ -13,9 +14,11 @@ const doc = {
       url: 'http://localhost:3000',
     },
   ],
+  security: [{ bearerAuth: [] }],
   components: {
     schemas: {
       ...userSchemas,
+      ...authSchemas,
     },
     parameters: {
       Page: {
@@ -45,6 +48,13 @@ const doc = {
         schema: {
           type: 'string',
         },
+      },
+    },
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
       },
     },
   },
