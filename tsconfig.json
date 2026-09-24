@@ -43,6 +43,9 @@
   "include": [
     "src/**/*"
   ],
+  "ts-node": {
+    "files": true
+  },
   "exclude": [
     "node_modules",
     "dist",

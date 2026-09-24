@@ -51,7 +51,7 @@ router.put(
     required: true,
     schema: { $ref: "#/components/schemas/UpdateUser" }
   }
-  #swagger.responses[201] = {
+  #swagger.responses[200] = {
     schema: { $ref: "#/components/schemas/UpdateUserResponse" }
   }
   */

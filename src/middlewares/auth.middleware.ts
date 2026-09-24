@@ -8,7 +8,7 @@ const auth = (...roles: string[]) => {
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    const decoded = verifyAccessToken(token);
+    const decoded = verifyAccessToken(token.split(' ')[1] as string);
     if (!decoded) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -18,7 +18,7 @@ const auth = (...roles: string[]) => {
       return res.status(401).json({ message: 'Unauthorized' });
     }
     if (!roles.includes(user.role)) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(403).json({ message: 'Forbidden access' });
     }
     req.user = user;
     next();

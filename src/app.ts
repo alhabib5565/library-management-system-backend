@@ -49,8 +49,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
   res.status(500).json({
     success: false,
-    message: 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    message: err.message,
+    error: process.env.NODE_ENV === 'development' ? err : undefined,
   });
 });
 

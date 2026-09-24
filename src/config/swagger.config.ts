@@ -3,6 +3,7 @@ import swaggerAutogen from 'swagger-autogen';
 import path from 'path';
 import { userSchemas } from '../modules/users/user.swagger.schema';
 import { authSchemas } from '../modules/auth/auth.swagger';
+import { bookSchemas } from '../modules/books/book.swagger.schema';
 const doc = {
   info: {
     title: 'Library Management System',
@@ -19,6 +20,7 @@ const doc = {
     schemas: {
       ...userSchemas,
       ...authSchemas,
+      ...bookSchemas,
     },
     parameters: {
       Page: {

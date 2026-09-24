@@ -155,8 +155,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -397,6 +397,199 @@
         },
         "security": []
       }
+    },
+    "/api/v1/books/": {
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBookResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBookResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBook"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBook"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Search"
+          },
+          {
+            "$ref": "#/components/parameters/Status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookListResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/books/{id}": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateBookResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateBookResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBook"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBook"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteBookResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteBookResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -422,7 +615,7 @@
           },
           "status": {
             "type": "string",
-            "example": "Active"
+            "example": "active"
           },
           "created_at": {
             "type": "string",
@@ -465,7 +658,7 @@
             },
             "status": {
               "type": "string",
-              "example": "Active"
+              "example": "active"
             },
             "created_at": {
               "type": "string",
@@ -928,6 +1121,322 @@
         },
         "xml": {
           "name": "RefreshTokenResponse"
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "book_id": {
+            "type": "string",
+            "example": "1"
+          },
+          "title": {
+            "type": "string",
+            "example": "Clean Code"
+          },
+          "author": {
+            "type": "string",
+            "example": "Robert C. Martin"
+          },
+          "isbn": {
+            "type": "string",
+            "example": "9780132350884"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://example.com/images/clean-code.jpg"
+          },
+          "created_by": {
+            "type": "string",
+            "example": "1"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-09-24T10:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2026-09-24T10:00:00.000Z"
+          }
+        },
+        "required": [
+          "book_id",
+          "title",
+          "author",
+          "isbn"
+        ],
+        "xml": {
+          "name": "Book"
+        }
+      },
+      "BookListData": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "book_id": {
+              "type": "string",
+              "example": "1"
+            },
+            "title": {
+              "type": "string",
+              "example": "Clean Code"
+            },
+            "author": {
+              "type": "string",
+              "example": "Robert C. Martin"
+            },
+            "isbn": {
+              "type": "string",
+              "example": "9780132350884"
+            },
+            "image": {
+              "type": "string",
+              "example": "https://example.com/images/clean-code.jpg"
+            },
+            "created_by": {
+              "type": "string",
+              "example": "1"
+            },
+            "status": {
+              "type": "string",
+              "example": "active"
+            },
+            "created_at": {
+              "type": "string",
+              "example": "2026-09-24T10:00:00.000Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "example": "2026-09-24T10:00:00.000Z"
+            }
+          },
+          "required": [
+            "book_id",
+            "title",
+            "author",
+            "isbn"
+          ]
+        },
+        "xml": {
+          "name": "BookListData"
+        }
+      },
+      "CreateBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Clean Code"
+          },
+          "author": {
+            "type": "string",
+            "example": "Robert C. Martin"
+          },
+          "isbn": {
+            "type": "string",
+            "example": "9780132350884"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://example.com/images/clean-code.jpg"
+          },
+          "created_by": {
+            "type": "string",
+            "example": "1"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "isbn",
+          "created_by"
+        ],
+        "xml": {
+          "name": "CreateBook"
+        }
+      },
+      "UpdateBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Clean Code - 2nd Edition"
+          },
+          "author": {
+            "type": "string",
+            "example": "Robert C. Martin"
+          },
+          "isbn": {
+            "type": "string",
+            "example": "9780132350884"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://example.com/images/clean-code-2.jpg"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          }
+        },
+        "xml": {
+          "name": "UpdateBook"
+        }
+      },
+      "CreateBookResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 201
+          },
+          "message": {
+            "type": "string",
+            "example": "Book created successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "book"
+            },
+            "$ref": "#/components/schemas/Book"
+          }
+        },
+        "xml": {
+          "name": "CreateBookResponse"
+        }
+      },
+      "UpdateBookResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Book updated successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "book"
+            },
+            "$ref": "#/components/schemas/Book"
+          }
+        },
+        "xml": {
+          "name": "UpdateBookResponse"
+        }
+      },
+      "BookResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Book retrieved successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "book"
+            },
+            "$ref": "#/components/schemas/Book"
+          }
+        },
+        "xml": {
+          "name": "BookResponse"
+        }
+      },
+      "BookListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Books retrieved successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "booklistdata"
+            },
+            "$ref": "#/components/schemas/BookListData"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "example": 1
+              },
+              "limit": {
+                "type": "number",
+                "example": 10
+              },
+              "total": {
+                "type": "number",
+                "example": 100
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "BookListResponse"
+        }
+      },
+      "DeleteBookResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Book deleted successfully"
+          },
+          "data": {
+            "xml": {
+              "name": "book"
+            },
+            "$ref": "#/components/schemas/Book"
+          }
+        },
+        "xml": {
+          "name": "DeleteBookResponse"
         }
       }
     },
